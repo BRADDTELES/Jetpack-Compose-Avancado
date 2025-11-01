@@ -92,7 +92,7 @@ Aplicação profissional com arquitetura escalável.
 
 ---
 
-#### **8.4 - App de Cafeteria ☕
+#### 8.4 - App de Cafeteria ☕
 
 ---
 
@@ -174,8 +174,8 @@ Aplicação profissional com arquitetura escalável.
 
 ## 📝 Checklist de Conclusão do Curso
 
-- ✅ Criou o repositório no GitHub
-- [  ] Domina Fundamentos de Compose
+ ✅ Criou o repositório no GitHub
+- [ ] Domina Fundamentos de Compose
 - [ ] Criou primeiro app em Compose
 - [ ] Trabalhou com DataStore
 - [ ] Implementou listas eficientes
