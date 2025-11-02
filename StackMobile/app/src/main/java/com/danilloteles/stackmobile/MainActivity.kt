@@ -1,25 +1,28 @@
 package com.danilloteles.stackmobile
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,31 +41,66 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Home() {
 
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+    val context = LocalContext.current
+
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.Green),
+        modifier = Modifier.fillMaxSize().background(Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Icon(
-            Icons.Rounded.Home,
-            contentDescription = null,
-            tint = Color.Blue,
-            modifier = Modifier.size(200.dp).padding(10.dp)
+        // Usando o botão de Login para alterar o texto do nome,
+        // para usuario autenticado, quando for clicado.
+        // Alterando o valor da variável name.
+        // Gerenciamento de Estado (State)
+
+        Text(
+            text = "Login Page",
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(30.dp)
         )
-        Text("Stack Mobile", fontSize = 30.sp)
+
+        // Caixas de Texto
+        OutlinedTextField(
+            value = email,
+            onValueChange = {
+                email = it
+            },
+            label = {
+                Text(text = "Email")
+            }, // PlaceHolder do campo de texto
+            maxLines = 1 // Máximo de linhas
+        )
+
+        OutlinedTextField(
+            value = senha,
+            onValueChange = {
+                senha = it
+            },
+            label = {
+                Text(text = "Senha")
+            }, // PlaceHolder do campo de texto
+            maxLines = 1 // Máximo de linhas
+        )
+
+        Button(
+            onClick = {
+                if ( email.isEmpty() || senha.isEmpty() ) {
+                    Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier.padding(10.dp)
+        ) {
+            Text(text = "Login")
+        }
+
+
     }
 
-}
-
-@Composable
-fun Cadastro() {
-
-}
-
-@Preview
-@Composable
-fun CadastroPreview() {
-    Cadastro()
 }
 
 
