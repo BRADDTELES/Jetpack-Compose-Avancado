@@ -175,7 +175,7 @@ Aplicação profissional com arquitetura escalável.
 ## 📝 Checklist de Conclusão do Curso
 
  ✅ Criou o repositório no GitHub
-- [ ] Domina Fundamentos de Compose
+ ✅ Domina Fundamentos de Compose
 - [ ] Criou primeiro app em Compose
 - [ ] Trabalhou com DataStore
 - [ ] Implementou listas eficientes
