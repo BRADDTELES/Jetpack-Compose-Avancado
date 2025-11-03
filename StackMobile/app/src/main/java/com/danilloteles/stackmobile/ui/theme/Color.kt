@@ -9,3 +9,12 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+
+/*
+* Cores Personalizadas
+* */
+
+val Orange = Color(0xFFf49d32)
+val Blue = Color(130,196,255)
+//Encontrado a Paleta de cores no site: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+val Blue200 = Color(0xFF90CAF9)
