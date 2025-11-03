@@ -9,7 +9,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -23,23 +25,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.danilloteles.stackmobile.componentes.TextFieldCustom
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Home()
+            Login()
         }
     }
 }
 
 
 @Composable
-fun Home() {
+fun Login() {
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
@@ -63,26 +67,29 @@ fun Home() {
         )
 
         // Caixas de Texto
-        OutlinedTextField(
+        TextFieldCustom(
             value = email,
             onValueChange = {
                 email = it
             },
-            label = {
-                Text(text = "Email")
-            }, // PlaceHolder do campo de texto
-            maxLines = 1 // Máximo de linhas
+            label = "Email",
+            modifier = Modifier.fillMaxWidth().padding(20.dp, 0.dp),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email
+            )
         )
 
-        OutlinedTextField(
+        TextFieldCustom(
             value = senha,
             onValueChange = {
                 senha = it
             },
-            label = {
-                Text(text = "Senha")
-            }, // PlaceHolder do campo de texto
-            maxLines = 1 // Máximo de linhas
+            label = "Senha",
+            modifier = Modifier.fillMaxWidth().padding(20.dp, 0.dp),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
+            isPassword = true
         )
 
         Button(
@@ -103,9 +110,8 @@ fun Home() {
 
 }
 
-
-@Preview(name = "HomePreview")
+@Preview(name = "LoginPreview")
 @Composable
-fun HomePreview() {
-    Home()
+fun LoginPreview() {
+    Login()
 }
