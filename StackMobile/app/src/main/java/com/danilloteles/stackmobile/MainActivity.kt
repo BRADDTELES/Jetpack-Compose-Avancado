@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,9 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.danilloteles.stackmobile.ui.theme.Blue
 import com.danilloteles.stackmobile.ui.theme.Blue200
 import com.danilloteles.stackmobile.ui.theme.Orange
@@ -40,17 +47,55 @@ fun Home() {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                // color = Color.White
-                // color = Color(158, 123, 181)
-                // color = Color(0xFF9e7bb5)
-                // color = Orange
-                color = Blue200
-            ),
+                color = Color.DarkGray
+            )
+            .padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        Canvas(
+            modifier = Modifier.fillMaxWidth().height(350.dp)
+                .background(color = Color.White)
+        ) {
+            drawRect(
+                color = Color.Green,
+                size = Size(
+                    width = 500f,
+                    height = 300f
+                ) ,// Usar valores com o 'f' no final para indicar que são flutuantes
+                topLeft = Offset(
+                    x = 100f,
+                    y = 50f
+                ),
 
+            )
+
+            drawOval(
+                color = Color.Green,
+                size = Size(
+                    width = 200f,
+                    height = 200f
+                ),
+                topLeft = Offset(
+                    x = 100f,
+                    y = 500f
+                ),
+            )
+
+            drawLine(
+                color = Color.Red,
+                start = Offset(
+                    x = 0f,
+                    y = 0f
+                ),
+                end = Offset(
+                    x = 600f,
+                    y = 50f
+                ),
+                strokeWidth = 10f
+            )
+        }
 
     }
 
