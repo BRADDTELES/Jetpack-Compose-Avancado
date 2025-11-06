@@ -13,3 +13,4 @@ runConfigurations.xml
 vcs.xml
 workspace.xml
 deploymentTargetSelector.xml
+deviceManager.xml
