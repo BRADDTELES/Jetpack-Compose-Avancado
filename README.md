@@ -176,8 +176,8 @@ Aplicação profissional com arquitetura escalável.
 
 - ✅ Criou o repositório no GitHub
 - ✅ Domina Fundamentos de Compose
-- [ ] Criou primeiro app em Compose
-- [ ] Trabalhou com DataStore
+- ✅ Criou primeiro app em Compose
+- ✅ Trabalhou com DataStore
 - [ ] Implementou listas eficientes
 - [ ] Usou Room Database
 - [ ] Aplicou Clean Architecture
