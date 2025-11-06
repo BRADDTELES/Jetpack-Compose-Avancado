@@ -1,9 +1,14 @@
 package com.danillotelescarneiro.appdeidiomas
 
+import android.app.LocaleManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.os.LocaleList
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,23 +30,29 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
+import com.danillotelescarneiro.appdeidiomas.datasource.LanguagePreferences
 import com.danillotelescarneiro.appdeidiomas.ui.theme.Blue900
 import com.danillotelescarneiro.appdeidiomas.ui.theme.Gray900
 import com.danillotelescarneiro.appdeidiomas.ui.theme.White
+import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,6 +67,17 @@ class MainActivity : ComponentActivity() {
 fun Home() {
 
     var expandedMenu by remember { mutableStateOf(false) }
+    var language by remember { mutableStateOf("") }
+    /*var flag by remember { mutableStateOf(0) }*/
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        LanguagePreferences.getLanguage(context = context).collect {
+            language = it
+            updateLocale(context, it)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -96,7 +118,13 @@ fun Home() {
                                     )
                                 },
                                 onClick = {
-
+                                    scope.launch {
+                                        LanguagePreferences.saveLanguage(
+                                            context = context,
+                                            languageCode = "pt"
+                                        )
+                                        expandedMenu = false
+                                    }
                                 }
                             )
 
@@ -112,7 +140,13 @@ fun Home() {
                                     )
                                 },
                                 onClick = {
-
+                                    scope.launch {
+                                        LanguagePreferences.saveLanguage(
+                                            context = context,
+                                            languageCode = "en"
+                                        )
+                                        expandedMenu = false
+                                    }
                                 }
                             )
 
@@ -128,7 +162,13 @@ fun Home() {
                                     )
                                 },
                                 onClick = {
-
+                                    scope.launch {
+                                        LanguagePreferences.saveLanguage(
+                                            context = context,
+                                            languageCode = "es"
+                                        )
+                                        expandedMenu = false
+                                    }
                                 }
                             )
                         }
@@ -145,11 +185,20 @@ fun Home() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Image(
-                painter = painterResource(R.drawable.bandeira1),
-                contentDescription = null,
-                modifier = Modifier.size(200.dp)
-            )
+            val flag = when(language){
+                "pt" -> R.drawable.bandeira1
+                "en" -> R.drawable.bandeira2
+                "es" -> R.drawable.bandeira3
+                else -> 0
+            }
+
+            if (  flag != 0  ) {
+                Image(
+                    painter = painterResource(flag),
+                    contentDescription = null,
+                    modifier = Modifier.size(200.dp)
+                )
+            }
 
             Text(
                 text = stringResource(R.string.idioma),
@@ -171,6 +220,20 @@ fun Home() {
 
         }
 
+    }
+}
+
+private fun updateLocale(context: Context, languageCode: String) {
+
+    if (  Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU  ) {
+        context.getSystemService(LocaleManager::class.java)
+            .applicationLocales = LocaleList.forLanguageTags(
+            languageCode
+            )
+    } else {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(
+            languageCode)
+        )
     }
 }
 

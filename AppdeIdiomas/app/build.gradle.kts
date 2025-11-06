@@ -42,6 +42,14 @@ android {
 }
 
 dependencies {
+
+    // Material Icons Extended
+    implementation(libs.androidx.compose.material.icons.extended)
+    // App Compat
+    implementation(libs.androidx.appcompat)
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

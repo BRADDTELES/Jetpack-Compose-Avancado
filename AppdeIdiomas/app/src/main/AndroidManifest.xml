@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppDeIdiomas">
         <activity
+            android:configChanges="locale|layoutDirection"
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
