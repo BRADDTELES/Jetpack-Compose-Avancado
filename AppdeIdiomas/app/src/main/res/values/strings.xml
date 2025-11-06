@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App de Idiomas</string>
+    <string name="idioma">Português (BR)</string>
+    <string name="descricao">Meu nome é Danillo Teles, eu moro no Brasil e sou Desenvolvedor Android.</string>
 </resources>
