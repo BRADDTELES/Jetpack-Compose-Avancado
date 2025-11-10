@@ -2,8 +2,11 @@ package com.danillotelescarneiro.listagemdedados.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
@@ -61,7 +64,7 @@ fun Home() {
                     Red
                 )
             )
-        )
+        ).padding(WindowInsets.systemBars.asPaddingValues())
     ) {
 
         LazyColumn(
