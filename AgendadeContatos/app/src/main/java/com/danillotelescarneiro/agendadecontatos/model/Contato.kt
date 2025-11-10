@@ -1,0 +1,15 @@
+package com.danillotelescarneiro.agendadecontatos.model
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.danillotelescarneiro.agendadecontatos.constantes.Constantes
+
+@Entity(tableName = Constantes.TABELA_CONTATO)
+data class Contato(
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    @ColumnInfo(name = "nome") val nome: String,
+    @ColumnInfo(name = "sobrenome") val sobrenome: String,
+    @ColumnInfo(name = "idade") val idade: String,
+    @ColumnInfo(name = "celular") val celular: String
+)
