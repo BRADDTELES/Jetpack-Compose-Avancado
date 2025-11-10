@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = "listaContatos"
                 ) {
-                    ListaContatos()
+                    ListaContatos(navController = navController)
                 }
 
                 composable(
