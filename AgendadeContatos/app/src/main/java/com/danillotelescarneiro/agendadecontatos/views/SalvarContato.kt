@@ -37,7 +37,7 @@ fun SalvarContato() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Salvar novo contato")
+                    Text(text = "Salvar novo Contato")
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = PURPLE_500,
