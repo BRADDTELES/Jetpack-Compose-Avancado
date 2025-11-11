@@ -1,6 +1,7 @@
 package com.danilloteles.primeiroprojetocompose
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -24,13 +24,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.danilloteles.primeiroprojetocompose.listener.RespostaServidor
 import com.danilloteles.primeiroprojetocompose.ui.theme.PrimeiroProjetoComposeTheme
 import com.danilloteles.primeiroprojetocompose.ui.theme.Purple40
-import com.danilloteles.primeiroprojetocompose.ui.theme.Purple500
+import com.danilloteles.primeiroprojetocompose.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,19 +42,48 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PrimeiraTela()
+            PrimeiroProjetoComposeTheme {
+
+                val viewModel: MainViewModel = hiltViewModel()
+                val context = LocalContext.current
+
+                // O Composable 'PrimeiraTela' agora recebe a função de login como parâmetro.
+                // Isso remove a dependência direta do ViewModel, tornando-o mais testável e
+                // permitindo que a visualização do preview funcione corretamente.
+                PrimeiraTela(
+                    onLoginClick = { email, senha ->
+                        viewModel.login(email, senha, object : RespostaServidor {
+                            override fun onSucess(mensagem: String) {
+                                Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onFailure(erro: String) {
+                                Toast.makeText(context, erro, Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                )
+            }
         }
     }
 }
 
+// O Composable foi refatorado para não depender mais diretamente do MainViewModel.
+// Em vez disso, ele recebe uma função lambda 'onLoginClick'.
+// Essa abordagem de "state hoisting" (elevação de estado) torna o Composable mais
+// reutilizável e fácil de testar, incluindo a renderização no modo Preview.
 @Composable
-fun PrimeiraTela() {
+fun PrimeiraTela(
+    onLoginClick: (String, String) -> Unit
+) {
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.White),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -61,7 +93,8 @@ fun PrimeiraTela() {
             onValueChange = {
                 email = it
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(20.dp, 50.dp, 20.dp, 10.dp),
             label = {
                 Text(text = "Email")
@@ -74,7 +107,8 @@ fun PrimeiraTela() {
             onValueChange = {
                 senha = it
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(20.dp, 0.dp, 20.dp, 10.dp),
             label = {
                 Text(text = "Senha")
@@ -84,7 +118,7 @@ fun PrimeiraTela() {
 
         Button(
             onClick = {
-
+                onLoginClick(email, senha)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Purple40
@@ -104,8 +138,10 @@ fun PrimeiraTela() {
 
 }
 
+// A preview agora passa uma função lambda vazia para 'onLoginClick'.
+// Isso resolve o erro de renderização, pois não tenta mais instanciar um ViewModel.
 @Preview
 @Composable
-private fun PrimeiraTelaPreview(){
-    PrimeiraTela()
+private fun PrimeiraTelaPreview() {
+    PrimeiraTela(onLoginClick = { _, _ -> })
 }

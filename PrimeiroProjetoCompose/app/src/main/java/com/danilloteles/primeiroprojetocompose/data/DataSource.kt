@@ -1,8 +1,9 @@
 package com.danilloteles.primeiroprojetocompose.data
 
 import com.danilloteles.primeiroprojetocompose.listener.RespostaServidor
+import javax.inject.Inject
 
-class DataSource {
+class DataSource @Inject constructor() {
     
     fun login(email: String, senha: String, respostaServidor: RespostaServidor) {
         if ( email.isEmpty() || senha.isEmpty() ) {
