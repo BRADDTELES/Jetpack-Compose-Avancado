@@ -64,7 +64,7 @@ fun ListaContatos(
             modifier = Modifier.fillMaxSize()
                 .padding(paddingValues).background(WHITE).verticalScroll(rememberScrollState())
         ) {
-            Text("Lista de Contatos")
+
         }
 
     }
