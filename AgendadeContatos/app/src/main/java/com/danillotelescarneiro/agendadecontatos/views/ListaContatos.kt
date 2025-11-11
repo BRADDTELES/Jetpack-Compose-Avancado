@@ -84,7 +84,7 @@ fun ListaContatos(
                 .padding(paddingValues)
         ) {
             itemsIndexed(listaContatos){ _, contato ->
-                ContatoItem(contato = contato)
+                ContatoItem(contato = contato, navController = navController)
             }
         }
 
@@ -95,5 +95,7 @@ fun ListaContatos(
 @Preview
 @Composable
 private fun ListaContatosPreview(){
-    ListaContatos(navController = rememberNavController())
+    ListaContatos(
+        navController = rememberNavController()
+    )
 }

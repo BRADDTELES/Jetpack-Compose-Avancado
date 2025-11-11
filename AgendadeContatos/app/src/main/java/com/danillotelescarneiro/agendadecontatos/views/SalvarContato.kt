@@ -27,6 +27,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.danillotelescarneiro.agendadecontatos.AppDatabase
 import com.danillotelescarneiro.agendadecontatos.componentes.Botao
 import com.danillotelescarneiro.agendadecontatos.componentes.OutlinedTextFieldCustom
@@ -41,7 +43,9 @@ private lateinit var contatoDao: ContatoDao
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SalvarContato() {
+fun SalvarContato(
+    navController: NavController
+) {
 
     var nome by remember { mutableStateOf("") }
     var sobrenome by remember { mutableStateOf("") }
@@ -147,6 +151,7 @@ fun SalvarContato() {
                     scope.launch(Dispatchers.Main) {
                         if (mensagem){
                             Toast.makeText(context, "Sucesso ao salvar contato", Toast.LENGTH_SHORT).show()
+                            navController.navigate("listaContatos")
                         } else {
                             Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
                         }
@@ -163,5 +168,7 @@ fun SalvarContato() {
 @Preview
 @Composable
 private fun SalvarContatoPreview(){
-    SalvarContato()
+    SalvarContato(
+        navController = rememberNavController()
+    )
 }
