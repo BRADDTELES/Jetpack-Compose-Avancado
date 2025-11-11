@@ -179,7 +179,7 @@ Aplicação profissional com arquitetura escalável.
 - ✅ Criou primeiro app em Compose
 - ✅ Trabalhou com DataStore
 - ✅ Implementou listas eficientes
-- [ ] Usou Room Database
+- ✅ Usou Room Database
 - [ ] Aplicou Clean Architecture
 - [ ] Fez requisições HTTP
 - [ ] Completou Agenda de Contatos
