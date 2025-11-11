@@ -151,7 +151,7 @@ fun SalvarContato(
                     scope.launch(Dispatchers.Main) {
                         if (mensagem){
                             Toast.makeText(context, "Sucesso ao salvar contato", Toast.LENGTH_SHORT).show()
-                            navController.navigate("listaContatos")
+                            navController.popBackStack()
                         } else {
                             Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
                         }
