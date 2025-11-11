@@ -1,5 +1,7 @@
 package com.danillotelescarneiro.agendadecontatos.itemlista
 
+import android.app.AlertDialog
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -22,16 +25,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.danillotelescarneiro.agendadecontatos.AppDatabase
+import com.danillotelescarneiro.agendadecontatos.dao.ContatoDao
 import com.danillotelescarneiro.agendadecontatos.model.Contato
 import com.danillotelescarneiro.agendadecontatos.ui.theme.WHITE
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+private lateinit var contatoDao: ContatoDao
 
 @Composable
 fun ContatoItem(
     contato: Contato,
+    listaContatos: MutableList<Contato>,
+    position: Int,
     navController: NavController
 ) {
 
     val uid = contato.uid
+    val contato = listaContatos[position]
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
+    fun alertDialogDeletarContato(){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog
+            .setTitle("Deseja Excluir?")
+            .setMessage("Tem certeza?")
+        alertDialog.setPositiveButton("OK"){ _, _ ->
+            scope.launch(Dispatchers.IO) {
+                contatoDao = AppDatabase.getInstance(context).contatoDao()
+                contatoDao.deletar(uid)
+                listaContatos.remove(contato)
+            }
+
+            scope.launch(Dispatchers.Main) {
+                navController.navigate("listaContatos")
+                Toast.makeText(context, "Contato removido com sucesso!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        alertDialog.setNegativeButton("Cancelar"){ _, _ ->
+
+        }
+        alertDialog.show()
+    }
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(10.dp),
@@ -81,7 +118,7 @@ fun ContatoItem(
 
                 IconButton(
                     onClick = {
-
+                        alertDialogDeletarContato()
                     }
                 ) {
                     Icon(
@@ -106,6 +143,8 @@ private fun ContatoItemPreview() {
             idade = "",
             celular = ""
         ),
+        listaContatos = mutableListOf(),
+        position = 0,
         navController = rememberNavController()
     )
 }

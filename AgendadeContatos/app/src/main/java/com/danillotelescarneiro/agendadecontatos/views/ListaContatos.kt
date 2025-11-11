@@ -83,8 +83,13 @@ fun ListaContatos(
             modifier = Modifier.fillMaxSize().background(Color.LightGray)
                 .padding(paddingValues)
         ) {
-            itemsIndexed(listaContatos){ _, contato ->
-                ContatoItem(contato = contato, navController = navController)
+            itemsIndexed(listaContatos){ position, contato ->
+                ContatoItem(
+                    contato = contato,
+                    listaContatos = listaContatos,
+                    position = position,
+                    navController = navController
+                )
             }
         }
 
