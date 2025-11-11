@@ -180,7 +180,7 @@ Aplicação profissional com arquitetura escalável.
 - ✅ Trabalhou com DataStore
 - ✅ Implementou listas eficientes
 - ✅ Usou Room Database
-- [ ] Aplicou Clean Architecture
+- ✅ Aplicou Clean Architecture
 - [ ] Fez requisições HTTP
 - [ ] Completou Agenda de Contatos
 - [ ] Completou Lista de Tarefas
