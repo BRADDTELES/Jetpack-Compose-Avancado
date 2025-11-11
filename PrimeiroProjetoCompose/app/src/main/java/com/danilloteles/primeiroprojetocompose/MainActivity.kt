@@ -31,7 +31,9 @@ import androidx.compose.ui.unit.sp
 import com.danilloteles.primeiroprojetocompose.ui.theme.PrimeiroProjetoComposeTheme
 import com.danilloteles.primeiroprojetocompose.ui.theme.Purple40
 import com.danilloteles.primeiroprojetocompose.ui.theme.Purple500
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
