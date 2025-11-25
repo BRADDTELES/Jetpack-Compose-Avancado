@@ -1,8 +1,9 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.danilloteles.buscadordecep.view
+package com.danilloteles.buscadordecep.ui.theme.view
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,16 +30,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.danilloteles.buscadordecep.ui.theme.Teal700
 import com.danilloteles.buscadordecep.ui.theme.WHITE
 import com.danilloteles.buscadordecep.ui.theme.componentes.Botao
 import com.danilloteles.buscadordecep.ui.theme.componentes.CaixaTexto
+import com.danilloteles.buscadordecep.ui.theme.viewmodel.BuscarCepViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BuscarCep(
-    navController: NavController
+    navController: NavController,
+    viewModel: BuscarCepViewModel = hiltViewModel()
 ) {
 
     var inputCep by remember { mutableStateOf("") }
@@ -86,7 +90,7 @@ fun BuscarCep(
 
                 Botao(
                     onClick = {
-
+                        Toast.makeText(context, viewModel.valor(), Toast.LENGTH_SHORT).show()
                     },
                     texto = "Buscar Cep",
                     modifier = Modifier.padding(0.dp, 59.dp, 20.dp, 10.dp).height(55.dp)
