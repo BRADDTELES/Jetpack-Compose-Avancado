@@ -66,4 +66,10 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
+
+    var ktor_version = "3.3.2"
+    implementation("io.ktor:ktor-client-core:${ktor_version}")
+    implementation("io.ktor:ktor-client-cio:${ktor_version}")
+    implementation("io.ktor:ktor-client-content-negotiation:${ktor_version}")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:${ktor_version}")
 }

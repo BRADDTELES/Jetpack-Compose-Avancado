@@ -1,12 +1,20 @@
 package com.danilloteles.buscadordecep.ui.theme.repositorio
 
+import com.danilloteles.buscadordecep.ui.theme.datasource.Servidor
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @ViewModelScoped
-class Repositorio @Inject constructor() {
+class Repositorio @Inject constructor(
+    private val servidor: Servidor
+) {
 
-    fun valor(): String {
-        return "Danillo Teles"
+    suspend fun buscarCep(
+        cep: String,
+        respostaDoServidor: (String, String, String, String) -> Unit,
+        mensagemErro: (String) -> Unit
+    ) {
+        servidor.buscarCep(cep, respostaDoServidor, mensagemErro)
     }
+
 }

@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.danilloteles.buscadordecep.ui.theme.BuscadorDeCepTheme
 import com.danilloteles.buscadordecep.ui.theme.view.BuscarCep
 import com.danilloteles.buscadordecep.ui.theme.viewmodel.BuscarCepViewModel
 import dagger.hilt.android.AndroidEntryPoint
